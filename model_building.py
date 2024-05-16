@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import pickle
 from sklearn.feature_selection import SelectKBest, f_classif
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
@@ -136,9 +137,6 @@ def train_and_predict(df, matches=None):
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    test = pd.DataFrame(X_test)
-    print(test.tail())
-
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
@@ -153,49 +151,15 @@ def train_and_predict(df, matches=None):
     print(f"Training completed with accuracy: {accuracy}")
     print(f"Classification report: \n{report}")
 
-    # Perform predictions for specified matches
-    if matches:
-        # Convert matches list to DataFrame
-        matches_df = pd.DataFrame(matches)
-        
-        # Ensure the matches DataFrame has all the required columns
-        required_columns = top_features + ['HomeTeam', 'AwayTeam']
-        for col in required_columns:
-            if col not in matches_df.columns:
-                matches_df[col] = 0  # or any default value appropriate for your feature
-        
-        # Debugging statements
-        print(f"Matches DataFrame before selecting features:\n{matches_df.head()}")
-        
-        # Select the same top features used for training
-        matches_df = matches_df[top_features]
-        
-        # Debugging statements
-        print(f"Matches DataFrame after selecting features:\n{matches_df.head()}")
-        
-        # Scale the features
-        matches_scaled = scaler.transform(matches_df)
-        
-        # Predict the outcomes
-        matches_pred = model.predict(matches_scaled)
-        
-        # Create a DataFrame for the predictions
-        predictions = pd.DataFrame({
-            'Index': matches_df.index,
-            'Predicted_FTR': matches_pred
-        })
-        
-        # Debugging statements
-        print(f"Predictions DataFrame:\n{predictions}")
-    else:
-        # Default to last 20 games if no matches specified
-        last_20_games = df.tail(20)
-        last_20_games_features = last_20_games[top_features]
-        last_20_games_scaled = scaler.transform(last_20_games_features)
-        last_20_pred = model.predict(last_20_games_scaled)
-        predictions = pd.DataFrame({
-            'Index': last_20_games.index,
-            'Predicted_FTR': last_20_pred
-        })
+    # Per salvare il modello
+    with open('E1_model.pkl', 'wb') as file:
+        pickle.dump(model, file)
 
-    return predictions, accuracy, report
+def main():
+    league = 'E1'  # Example league
+    data = load_and_preprocess_data(league)
+    data_with_features = add_new_features(data)
+    train_and_predict(data_with_features)
+
+if __name__ == "__main__":
+    main()
