@@ -5,42 +5,44 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import classification_report
 import pickle
 
-# Load file (Prima riga ci sono le label e la prima colonna ha gli indici)
-x = pd.read_csv("dataframe.csv", delimiter=",", header=0, index_col=None)
+try:
+    filepath = f"models/EC/EC_dataframe.csv"
+    x = pd.read_csv(filepath, delimiter=",", header=0, index_col=None)
+except FileNotFoundError:
+    print(f"File not found")
 
-# Elimina le colonne non necessarie
+# Eliminate unnecessary columns
 studying_features = x.drop(columns=['HomeTeam', 'AwayTeam'])
-print(studying_features.columns)
 studying_features = studying_features.drop(columns=['FTHG', 'FTAG', 'HS', 'AS', 'HST', 'AST', 'HC', 'AC', 'HY', 'AY', 'HR', 'AR'])
-print(studying_features)
 studying_features = studying_features.drop(columns=['Last_Home_Red', 'AAHR', 'AHR', 'AAAR', 'AHAR', 'Last_Home_Yellow', 'Last_Away_Red', 'AHAYY', 'AAAYY', 'AHHY', 'Last_Away_Yellow'])
-print(studying_features.columns)
 
-# Crea una copia del DataFrame
+# Create a copy of the DataFrame
 x = studying_features.copy()
 
-# Converti tutte le colonne a valori float
+# Convert all columns to float
 for col in x.columns:
-    if col != 'FTR':  # Escludi la colonna target
+    if col != 'FTR':  # Exclude the target column
         x[col] = x[col].astype(float)
 
-# Separa le feature dal target
+# Separate features and target
 X = x.drop(columns=['FTR'])
 y = x['FTR']
 
-# Dividi i dati in set di addestramento e test
+# Split data into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Addestra il modello Naive Bayes
+# Train the Naive Bayes model
 model = GaussianNB()
 model.fit(X_train, y_train)
 
-# Fai previsioni sul set di test
+# Make predictions on the test set
 y_pred = model.predict(X_test)
 
-# Valuta le prestazioni del modello
+# Evaluate the model performance
+print(f"Classification report:")
 print(classification_report(y_test, y_pred))
 
-# Salva il modello con Pickle
-with open('E1_model.pkl', 'wb') as file:
+# Save the model with Pickle
+model_filepath = f'models/EC/EC_model.pkl'
+with open(model_filepath, 'wb') as file:
     pickle.dump(model, file)
