@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from match_predictor import predict_match_result
+from match_predictor import predict_match_result  
 
 app = Flask(__name__)
 
@@ -32,30 +32,33 @@ LEAGUES = {
 def predict():
     data = request.get_json()
     league = data.get('league')
-    match = data.get('match')  # Expecting a single match dictionary
+    matches = data.get('matches')  # Expecting a list of matches
 
     if league not in LEAGUES:
         return jsonify({"error": "Invalid league code"}), 400
 
-    if not match:
-        return jsonify({"error": "Match data is required"}), 400
+    if not matches or not isinstance(matches, list):
+        return jsonify({"error": "Match data is required and should be a list"}), 400
 
-    # Extract match details
-    HomeTeam = match.get('HomeTeam')
-    AwayTeam = match.get('AwayTeam')
-    AvgH = match.get('AvgH')
-    AvgD = match.get('AvgD')
-    AvgA = match.get('AvgA')
-    AvgMORE25 = match.get('AvgMORE25')
-    AvgCLESS25 = match.get('AvgCLESS25')
+    predictions = []
+    for match in matches:
+        # Extract match details
+        HomeTeam = match.get('HomeTeam')
+        AwayTeam = match.get('AwayTeam')
+        AvgH = match.get('AvgH')
+        AvgD = match.get('AvgD')
+        AvgA = match.get('AvgA')
+        AvgMORE25 = match.get('AvgMORE25')
+        AvgCLESS25 = match.get('AvgCLESS25')
 
-    if not all([HomeTeam, AwayTeam, AvgH, AvgD, AvgA, AvgMORE25, AvgCLESS25]):
-        return jsonify({"error": "Incomplete match data"}), 400
+        if not all([HomeTeam, AwayTeam, AvgH, AvgD, AvgA, AvgMORE25, AvgCLESS25]):
+            return jsonify({"error": f"Incomplete match data for match: {match}"}), 400
 
-    # Perform the prediction using the function from 3.py
-    prediction = predict_match_result(league, HomeTeam, AwayTeam, AvgH, AvgD, AvgA, AvgMORE25, AvgCLESS25)
+        # Perform the prediction using the function from 3.py
+        prediction = predict_match_result(league, HomeTeam, AwayTeam, AvgH, AvgD, AvgA, AvgMORE25, AvgCLESS25)
+        predictions.append(prediction)
 
-    return jsonify({"prediction": prediction.tolist()})
+    return jsonify(predictions)
 
 if __name__ == '__main__':
     app.run(debug=True)

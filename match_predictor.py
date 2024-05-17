@@ -389,7 +389,13 @@ def predict_match_result(league_id, HomeTeam, AwayTeam, AvgH, AvgD, AvgA, AvgMOR
 
     predictions = model.predict(X_last)
     print(predictions)
-    return predictions
+    
+    # Return a dictionary with prediction and team information
+    return {
+        "HomeTeam": HomeTeam,
+        "AwayTeam": AwayTeam,
+        "Prediction": predictions[0]
+    }
 
 # Example usage
 if __name__ == "__main__":
@@ -402,4 +408,5 @@ if __name__ == "__main__":
     AvgA = 3.10
     AvgMORE25 = 1.72
     AvgCLESS25 = 2.10
-    predict_match_result(league_id, HomeTeam, AwayTeam, AvgH, AvgD, AvgA, AvgMORE25, AvgCLESS25)
+    result = predict_match_result(league_id, HomeTeam, AwayTeam, AvgH, AvgD, AvgA, AvgMORE25, AvgCLESS25)
+    print(result)

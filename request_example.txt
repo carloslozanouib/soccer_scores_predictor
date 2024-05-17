@@ -1,0 +1,43 @@
+$body = @{
+    league = "I1"
+    matches = @(
+        @{
+            HomeTeam = "Fiorentina"
+            AwayTeam = "Napoli"
+            AvgH = 2.25
+            AvgD = 3.4
+            AvgA = 3.10
+            AvgMORE25 = 1.72
+            AvgCLESS25 = 2.10
+        },
+        @{
+            HomeTeam = "Lecce"
+            AwayTeam = "Atalanta"
+            AvgH = 4.75
+            AvgD = 3.9
+            AvgA = 1.7
+            AvgMORE25 = 1.8
+            AvgCLESS25 = 2.0
+        },
+        @{
+            HomeTeam = "Sassuolo"
+            AwayTeam = "Cagliari"
+            AvgH = 2.35
+            AvgD = 3.3
+            AvgA = 3.10
+            AvgMORE25 = 1.8
+            AvgCLESS25 = 2.0
+        },
+        @{
+            HomeTeam = "Torino"
+            AwayTeam = "Milan"
+            AvgH = 2.7
+            AvgD = 3.2
+            AvgA = 2.7
+            AvgMORE25 = 2.1
+            AvgCLESS25 = 1.72
+        }
+    )
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri "http://localhost:5000/predict" -Method Post -Body $body -ContentType "application/json"
