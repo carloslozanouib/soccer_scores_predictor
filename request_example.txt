@@ -40,4 +40,7 @@ $body = @{
     )
 } | ConvertTo-Json
 
-Invoke-RestMethod -Uri "http://localhost:5000/predict" -Method Post -Body $body -ContentType "application/json"
+$response = Invoke-RestMethod -Uri "http://localhost:5000/predict" -Method Post -Body $body -ContentType "application/json"
+
+# Print the response
+$response | Format-Table HomeTeam, AwayTeam, Prediction
