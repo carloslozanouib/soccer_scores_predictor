@@ -1,1 +1,1 @@
-Invoke-RestMethod -Uri http://127.0.0.1:5000/predict -Method POST -Headers @{ "Content-Type" = "application/json" } -Body '{"league": "XX", "matches": [{"HomeTeam": "TeamA", "AwayTeam": "TeamB", "AvgH": 1.00, "AvgD": 1.00, "AvgA": 1.00, "AvgMORE25": 1.00, "AvgCLESS25": 1.00}]}'
+Invoke-RestMethod -Uri "http://localhost:5000/predict" -Method Post -Body (@{ league = "I1"; match = @{ HomeTeam = "Fiorentina"; AwayTeam = "Napoli"; AvgH = 2.25; AvgD = 3.4; AvgA = 3.10; AvgMORE25 = 1.72; AvgCLESS25 = 2.10 } } | ConvertTo-Json) -ContentType "application/json"
