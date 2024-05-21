@@ -1,46 +1,94 @@
 $body = @{
-    league = "I1"
+    league = "D1"
     matches = @(
         @{
-            HomeTeam = "Fiorentina"
-            AwayTeam = "Napoli"
-            AvgH = 2.25
-            AvgD = 3.4
-            AvgA = 3.10
-            AvgMORE25 = 1.72
+            HomeTeam = "Dortmund"
+            AwayTeam = "Darmstadt"
+            AvgH = 1.14
+            AvgD = 9.00
+            AvgA = 13.50
+            AvgMORE25 = 1.98
+            AvgCLESS25 = 1.73
+        },
+        @{
+            HomeTeam = "Ein Frankfurt"
+            AwayTeam = "RB Leipzig"
+            AvgH = 2.45
+            AvgD = 3.70
+            AvgA = 2.60
+            AvgMORE25 = 2.10
+            AvgCLESS25 = 1.65
+        },
+        @{
+            HomeTeam = "Wolfsburg"
+            AwayTeam = "Mainz"
+            AvgH = 3.20
+            AvgD = 3.50
+            AvgA = 2.10
+            AvgMORE25 = 1.70
+            AvgCLESS25 = 2.05
+        },
+        @{
+            HomeTeam = "Hoffenheim"
+            AwayTeam = "Bayern Munich"
+            AvgH = 2.00
+            AvgD = 4.20
+            AvgA = 2.00
+            AvgMORE25 = 1.66
             AvgCLESS25 = 2.10
         },
         @{
-            HomeTeam = "Lecce"
-            AwayTeam = "Atalanta"
-            AvgH = 4.75
-            AvgD = 3.9
-            AvgA = 1.7
-            AvgMORE25 = 1.8
-            AvgCLESS25 = 2.0
+            HomeTeam = "Werder Bremen"
+            AwayTeam = "Bochum"
+            AvgH = 2.15
+            AvgD = 3.60
+            AvgA = 3.00
+            AvgMORE25 = 2.20
+            AvgCLESS25 = 1.58
         },
         @{
-            HomeTeam = "Sassuolo"
-            AwayTeam = "Cagliari"
-            AvgH = 2.35
-            AvgD = 3.3
-            AvgA = 3.10
-            AvgMORE25 = 1.8
-            AvgCLESS25 = 2.0
+            HomeTeam = "Stuttgart"
+            AwayTeam = "M'gladbach"
+            AvgH = 1.23
+            AvgD = 6.75
+            AvgA = 9.75
+            AvgMORE25 = 2.15
+            AvgCLESS25 = 1.63
         },
         @{
-            HomeTeam = "Torino"
-            AwayTeam = "Milan"
-            AvgH = 2.7
-            AvgD = 3.2
-            AvgA = 2.7
-            AvgMORE25 = 2.1
-            AvgCLESS25 = 1.72
+            HomeTeam = "Union Berlin"
+            AwayTeam = "Freiburg"
+            AvgH = 2.10
+            AvgD = 3.80
+            AvgA = 2.87
+            AvgMORE25 = 2.10
+            AvgCLESS25 = 1.66
+        },
+        @{
+            HomeTeam = "Heidenheim"
+            AwayTeam = "FC Koln"
+            AvgH = 2.20
+            AvgD = 3.80
+            AvgA = 2.87
+            AvgMORE25 = 2.10
+            AvgCLESS25 = 1.66
+        },
+        @{
+            HomeTeam = "Leverkusen"
+            AwayTeam = "Augsburg"
+            AvgH = 1.24
+            AvgD = 6.50
+            AvgA = 9.50
+            AvgMORE25 = 1.58
+            AvgCLESS25 = 2.25
         }
     )
 } | ConvertTo-Json
 
 $response = Invoke-RestMethod -Uri "http://localhost:5000/predict" -Method Post -Body $body -ContentType "application/json"
 
-# Print the response
 $response | Format-Table HomeTeam, AwayTeam, Prediction
+
+
+
+

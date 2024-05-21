@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Predictor</title>
+    <style>
+        /* Aggiungi qui il tuo stile CSS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .loading {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Match Predictor</h1>
+        <form id="prediction-form">
+            <div>
+                <label for="league">League:</label>
+                <select id="league" name="league">
+                    <option value="">Select League</option>
+                    {% for code, name in leagues.items() %}
+                        <option value="{{ code }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="HomeTeam">Home Team:</label>
+                <select id="HomeTeam" name="HomeTeam" disabled>
+                    <option value="">Select Home Team</option>
+                </select>
+            </div>
+            <div>
+                <label for="AwayTeam">Away Team:</label>
+                <select id="AwayTeam" name="AwayTeam" disabled>
+                    <option value="">Select Away Team</option>
+                </select>
+            </div>
+            <div>
+                <label for="AvgH">AvgH:</label>
+                <input type="text" id="AvgH" name="AvgH" required>
+            </div>
+            <div>
+                <label for="AvgD">AvgD:</label>
+                <input type="text" id="AvgD" name="AvgD" required>
+            </div>
+            <div>
+                <label for="AvgA">AvgA:</label>
+                <input type="text" id="AvgA" name="AvgA" required>
+            </div>
+            <div>
+                <label for="AvgMORE25">AvgMORE25:</label>
+                <input type="text" id="AvgMORE25" name="AvgMORE25" required>
+            </div>
+            <div>
+                <label for="AvgCLESS25">AvgCLESS25:</label>
+                <input type="text" id="AvgCLESS25" name="AvgCLESS25" required>
+            </div>
+            <button type="submit">Predict</button>
+        </form>
+        <div class="loading">Loading...</div>
+        <div id="result"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#league').change(function() {
+                const league = $(this).val();
+                if (league) {
+                    $.getJSON(`/get_teams/${league}`, function(data) {
+                        let homeOptions = '<option value="">Select Home Team</option>';
+                        let awayOptions = '<option value="">Select Away Team</option>';
+                        data.forEach(team => {
+                            homeOptions += `<option value="${team}">${team}</option>`;
+                            awayOptions += `<option value="${team}">${team}</option>`;
+                        });
+                        $('#HomeTeam').html(homeOptions).prop('disabled', false);
+                        $('#AwayTeam').html(awayOptions).prop('disabled', false);
+                    });
+                } else {
+                    $('#HomeTeam').html('<option value="">Select Home Team</option>').prop('disabled', true);
+                    $('#AwayTeam').html('<option value="">Select Away Team</option>').prop('disabled', true);
+                }
+            });
+
+            $('#prediction-form').submit(function(event) {
+                event.preventDefault();
+                $('.loading').show();
+                const formData = {
+                    league: $('#league').val(),
+                    HomeTeam: $('#HomeTeam').val(),
+                    AwayTeam: $('#AwayTeam').val(),
+                    AvgH: $('#AvgH').val(),
+                    AvgD: $('#AvgD').val(),
+                    AvgA: $('#AvgA').val(),
+                    AvgMORE25: $('#AvgMORE25').val(),
+                    AvgCLESS25: $('#AvgCLESS25').val()
+                };
+                $.ajax({
+                    url: '/predict',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function(response) {
+                        $('.loading').hide();
+                        $('#result').html(`
+                            <h2>Prediction</h2>
+                            <p>Home Team: ${response.HomeTeam}</p>
+                            <p>Away Team: ${response.AwayTeam}</p>
+                            <p>Prediction: ${response.Prediction}</p>
+                        `);
+                    },
+                    error: function(error) {
+                        $('.loading').hide();
+                        $('#result').html('<p>Error making prediction. Please try again.</p>');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
