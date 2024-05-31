@@ -1,3 +1,5 @@
+#app.py
+
 from flask import Flask, request, jsonify, render_template
 from match_predictor import predict_match_result
 
@@ -65,20 +67,49 @@ def get_teams(league):
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json()
-    league = data.get('league')
-    HomeTeam = data.get('HomeTeam')
-    AwayTeam = data.get('AwayTeam')
-    AvgH = data.get('AvgH')
-    AvgD = data.get('AvgD')
-    AvgA = data.get('AvgA')
-    AvgMORE25 = data.get('AvgMORE25')
-    AvgCLESS25 = data.get('AvgCLESS25')
+    results = []
 
-    if not all([league, HomeTeam, AwayTeam, AvgH, AvgD, AvgA, AvgMORE25, AvgCLESS25]):
-        return jsonify({"error": "Incomplete match data"}), 400
+    if 'matches' in data and isinstance(data['matches'], list):
+        for match in data['matches']:
+            league = match.get('league')
+            HomeTeam = match.get('HomeTeam')
+            AwayTeam = match.get('AwayTeam')
+            AvgH = match.get('AvgH')
+            AvgD = match.get('AvgD')
+            AvgA = match.get('AvgA')
+            AvgMORE25 = match.get('AvgMORE25')
+            AvgCLESS25 = match.get('AvgCLESS25')
 
-    prediction = predict_match_result(league, HomeTeam, AwayTeam, AvgH, AvgD, AvgA, AvgMORE25, AvgCLESS25)
-    return jsonify(prediction)
+            if not all([league, HomeTeam, AwayTeam, AvgH, AvgD, AvgA, AvgMORE25, AvgCLESS25]):
+                results.append({"error": "Incomplete match data"})
+            else:
+                prediction_result = predict_match_result(league, HomeTeam, AwayTeam, AvgH, AvgD, AvgA, AvgMORE25, AvgCLESS25)
+                
+                # Ensure the prediction is returned as a string
+                if isinstance(prediction_result, dict) and 'Prediction' in prediction_result:
+                    prediction = prediction_result['Prediction']
+                else:
+                    prediction = prediction_result
+                
+                prediction_text = {
+                    "H": "Home Wins",
+                    "A": "Away Wins",
+                    "D": "Draw"
+                }.get(prediction, "Data Error")
+                
+                results.append({
+                    "HomeTeam": HomeTeam,
+                    "AwayTeam": AwayTeam,
+                    "Prediction": prediction_text
+                })
+    else:
+        return jsonify({"error": "No matches data found"}), 400
+
+    # Ensure the HomeTeam is the first key in the JSON response
+    for result in results:
+        result = {key: result[key] for key in ["HomeTeam", "AwayTeam", "Prediction"]}
+
+    return jsonify(results)
 
 if __name__ == '__main__':
     app.run(debug=True)

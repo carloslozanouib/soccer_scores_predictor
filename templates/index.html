@@ -5,17 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Match Predictor</title>
     <style>
-        /* Aggiungi qui il tuo stile CSS */
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text color for better contrast */
         }
         .container {
+            width: 100%;
             max-width: 600px;
             margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        select, input[type="text"], button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 8px;
+            margin-bottom: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box; /* Makes the padding not affect the width */
+        }
+        button {
+            background-color: #f8f9fa;
+            color: black;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #e2e6ea;
+        }
+        label {
+            font-weight: bold;
         }
         .loading {
+            text-align: center;
             display: none;
+        }
+        #result {
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -96,15 +130,18 @@
                 event.preventDefault();
                 $('.loading').show();
                 const formData = {
-                    league: $('#league').val(),
-                    HomeTeam: $('#HomeTeam').val(),
-                    AwayTeam: $('#AwayTeam').val(),
-                    AvgH: $('#AvgH').val(),
-                    AvgD: $('#AvgD').val(),
-                    AvgA: $('#AvgA').val(),
-                    AvgMORE25: $('#AvgMORE25').val(),
-                    AvgCLESS25: $('#AvgCLESS25').val()
+                    matches: [{
+                        league: $('#league').val(),
+                        HomeTeam: $('#HomeTeam').val(),
+                        AwayTeam: $('#AwayTeam').val(),
+                        AvgH: $('#AvgH').val(),
+                        AvgD: $('#AvgD').val(),
+                        AvgA: $('#AvgA').val(),
+                        AvgMORE25: $('#AvgMORE25').val(),
+                        AvgCLESS25: $('#AvgCLESS25').val()
+                    }]
                 };
+
                 $.ajax({
                     url: '/predict',
                     method: 'POST',
@@ -112,12 +149,11 @@
                     data: JSON.stringify(formData),
                     success: function(response) {
                         $('.loading').hide();
-                        $('#result').html(`
-                            <h2>Prediction</h2>
-                            <p>Home Team: ${response.HomeTeam}</p>
-                            <p>Away Team: ${response.AwayTeam}</p>
-                            <p>Prediction: ${response.Prediction}</p>
-                        `);
+                        let resultsHtml = '<h2>Predictions</h2>';
+                        response.forEach(res => {
+                            resultsHtml += `<p>Home Team: ${res.HomeTeam}, Away Team: ${res.AwayTeam}, Prediction: ${res.Prediction}</p>`;
+                        });
+                        $('#result').html(resultsHtml);
                     },
                     error: function(error) {
                         $('.loading').hide();

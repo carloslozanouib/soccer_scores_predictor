@@ -1,94 +1,24 @@
-$body = @{
-    league = "D1"
+# Define the URL of your Flask app's predict endpoint
+$url = "http://127.0.0.1:5000/predict"
+
+# Create the JSON payload
+$jsonPayload = @{
     matches = @(
         @{
-            HomeTeam = "Dortmund"
-            AwayTeam = "Darmstadt"
-            AvgH = 1.14
-            AvgD = 9.00
-            AvgA = 13.50
-            AvgMORE25 = 1.98
-            AvgCLESS25 = 1.73
-        },
-        @{
-            HomeTeam = "Ein Frankfurt"
-            AwayTeam = "RB Leipzig"
-            AvgH = 2.45
-            AvgD = 3.70
-            AvgA = 2.60
-            AvgMORE25 = 2.10
-            AvgCLESS25 = 1.65
-        },
-        @{
-            HomeTeam = "Wolfsburg"
-            AwayTeam = "Mainz"
-            AvgH = 3.20
-            AvgD = 3.50
-            AvgA = 2.10
-            AvgMORE25 = 1.70
-            AvgCLESS25 = 2.05
-        },
-        @{
-            HomeTeam = "Hoffenheim"
-            AwayTeam = "Bayern Munich"
-            AvgH = 2.00
-            AvgD = 4.20
-            AvgA = 2.00
-            AvgMORE25 = 1.66
-            AvgCLESS25 = 2.10
-        },
-        @{
-            HomeTeam = "Werder Bremen"
-            AwayTeam = "Bochum"
-            AvgH = 2.15
-            AvgD = 3.60
-            AvgA = 3.00
-            AvgMORE25 = 2.20
-            AvgCLESS25 = 1.58
-        },
-        @{
-            HomeTeam = "Stuttgart"
-            AwayTeam = "M'gladbach"
-            AvgH = 1.23
-            AvgD = 6.75
-            AvgA = 9.75
-            AvgMORE25 = 2.15
-            AvgCLESS25 = 1.63
-        },
-        @{
-            HomeTeam = "Union Berlin"
-            AwayTeam = "Freiburg"
-            AvgH = 2.10
-            AvgD = 3.80
-            AvgA = 2.87
-            AvgMORE25 = 2.10
-            AvgCLESS25 = 1.66
-        },
-        @{
-            HomeTeam = "Heidenheim"
-            AwayTeam = "FC Koln"
-            AvgH = 2.20
-            AvgD = 3.80
-            AvgA = 2.87
-            AvgMORE25 = 2.10
-            AvgCLESS25 = 1.66
-        },
-        @{
-            HomeTeam = "Leverkusen"
-            AwayTeam = "Augsburg"
-            AvgH = 1.24
-            AvgD = 6.50
-            AvgA = 9.50
-            AvgMORE25 = 1.58
-            AvgCLESS25 = 2.25
+            league = "I1"           # Replace with the appropriate league code
+            HomeTeam = "Roma"       # Replace with the home team name
+            AwayTeam = "Sassuolo"   # Replace with the away team name
+            AvgH = 2.25             # Replace with the average home odds
+            AvgD = 3.4              # Replace with the average draw odds
+            AvgA = 3.10             # Replace with the average away odds
+            AvgMORE25 = 1.72        # Replace with the average over 2.5 goals odds
+            AvgCLESS25 = 2.10       # Replace with the average under 2.5 goals odds
         }
     )
 } | ConvertTo-Json
 
-$response = Invoke-RestMethod -Uri "http://localhost:5000/predict" -Method Post -Body $body -ContentType "application/json"
+# Send the POST request
+$response = Invoke-RestMethod -Uri $url -Method Post -ContentType "application/json" -Body $jsonPayload
 
-$response | Format-Table HomeTeam, AwayTeam, Prediction
-
-
-
-
+# Output the response
+$response | ConvertTo-Json
