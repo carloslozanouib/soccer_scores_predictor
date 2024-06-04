@@ -31,13 +31,13 @@ LEAGUES = {
 # Function to process each league
 def process_league(league_id, league_name):
     raw_data_files = [
-        f"data/1718/all-euro-data-2017-2018.xlsx",
-        f"data/1819/all-euro-data-2018-2019.xlsx",
-        f"data/1920/all-euro-data-2019-2020.xlsx",
-        f"data/2021/all-euro-data-2020-2021.xlsx",
-        f"data/2122/all-euro-data-2021-2022.xlsx",
-        f"data/2223/all-euro-data-2022-2023.xlsx",
-        f"data/2324/all-euro-data-2023-2024.xlsx",
+        f"static/data/1718/all-euro-data-2017-2018.xlsx",
+        f"static/data/1819/all-euro-data-2018-2019.xlsx",
+        f"static/data/1920/all-euro-data-2019-2020.xlsx",
+        f"static/data/2021/all-euro-data-2020-2021.xlsx",
+        f"static/data/2122/all-euro-data-2021-2022.xlsx",
+        f"static/data/2223/all-euro-data-2022-2023.xlsx",
+        f"static/data/2324/all-euro-data-2023-2024.xlsx",
     ]
 
     data_frames = []

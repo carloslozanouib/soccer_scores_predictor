@@ -6,7 +6,7 @@ from sklearn.metrics import classification_report
 import pickle
 
 try:
-    filepath = f"models/EC/EC_dataframe.csv"
+    filepath = f"static/models/EC/EC_dataframe.csv"
     x = pd.read_csv(filepath, delimiter=",", header=0, index_col=None)
 except FileNotFoundError:
     print(f"File not found")
@@ -43,6 +43,6 @@ print(f"Classification report:")
 print(classification_report(y_test, y_pred))
 
 # Save the model with Pickle
-model_filepath = f'models/EC/EC_model.pkl'
+model_filepath = f'static/models/EC/EC_model.pkl'
 with open(model_filepath, 'wb') as file:
     pickle.dump(model, file)

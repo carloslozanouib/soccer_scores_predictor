@@ -2,8 +2,13 @@
 
 from flask import Flask, request, jsonify, render_template
 from match_predictor import predict_match_result
+import logging
 
 app = Flask(__name__)
+
+# Initialize logger
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 LEAGUES = {
     "E0": "Premier League",
@@ -66,10 +71,16 @@ def get_teams(league):
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    data = request.get_json()
-    results = []
+    try:
+        data = request.get_json()
+        logger.debug(f"Received data for prediction: {data}")
 
-    if 'matches' in data and isinstance(data['matches'], list):
+        if not data or 'matches' not in data or not isinstance(data['matches'], list):
+            logger.error("Invalid or missing 'matches' data")
+            return jsonify({"error": "Invalid or missing 'matches' data"}), 400
+
+        results = []
+
         for match in data['matches']:
             league = match.get('league')
             HomeTeam = match.get('HomeTeam')
@@ -80,36 +91,40 @@ def predict():
             AvgMORE25 = match.get('AvgMORE25')
             AvgCLESS25 = match.get('AvgCLESS25')
 
+            logger.debug(f"Match data: League={league}, HomeTeam={HomeTeam}, AwayTeam={AwayTeam}, AvgH={AvgH}, AvgD={AvgD}, AvgA={AvgA}, AvgMORE25={AvgMORE25}, AvgCLESS25={AvgCLESS25}")
+
             if not all([league, HomeTeam, AwayTeam, AvgH, AvgD, AvgA, AvgMORE25, AvgCLESS25]):
                 results.append({"error": "Incomplete match data"})
-            else:
+                continue
+
+            try:
                 prediction_result = predict_match_result(league, HomeTeam, AwayTeam, AvgH, AvgD, AvgA, AvgMORE25, AvgCLESS25)
-                
-                # Ensure the prediction is returned as a string
+                logger.debug(f"Prediction result: {prediction_result}")
+
                 if isinstance(prediction_result, dict) and 'Prediction' in prediction_result:
                     prediction = prediction_result['Prediction']
                 else:
                     prediction = prediction_result
-                
+
                 prediction_text = {
                     "H": "Home Wins",
                     "A": "Away Wins",
                     "D": "Draw"
                 }.get(prediction, "Data Error")
-                
+
                 results.append({
                     "HomeTeam": HomeTeam,
                     "AwayTeam": AwayTeam,
                     "Prediction": prediction_text
                 })
-    else:
-        return jsonify({"error": "No matches data found"}), 400
+            except Exception as e:
+                logger.error(f"Error predicting match result: {str(e)}")
+                results.append({"error": str(e)})
 
-    # Ensure the HomeTeam is the first key in the JSON response
-    for result in results:
-        result = {key: result[key] for key in ["HomeTeam", "AwayTeam", "Prediction"]}
-
-    return jsonify(results)
+        return jsonify(results)
+    except Exception as e:
+        logger.error(f"Error in /predict route: {str(e)}")
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -35,7 +35,7 @@ LEAGUES = {
 def process_and_train_league(league_id):
     # Load file
     try:
-        filepath = f"models/{league_id}/{league_id}_dataframe.csv"
+        filepath = f"static/models/{league_id}/{league_id}_dataframe.csv"
         x = pd.read_csv(filepath, delimiter=",", header=0, index_col=None)
     except FileNotFoundError:
         print(f"File not found for league: {league_id}")
@@ -73,7 +73,7 @@ def process_and_train_league(league_id):
     print(classification_report(y_test, y_pred))
     
     # Save the model with Pickle
-    model_filepath = f'models/{league_id}/{league_id}_model.pkl'
+    model_filepath = f'static/models/{league_id}/{league_id}_model.pkl'
     with open(model_filepath, 'wb') as file:
         pickle.dump(model, file)
 
