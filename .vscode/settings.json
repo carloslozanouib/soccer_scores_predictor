@@ -1,4 +1,4 @@
 {
-    "appService.defaultWebAppToDeploy": "undefined/subscriptions/fc011c7b-8150-4065-af8b-1a8487bc3f73/resourceGroups/srs2024-stu-g16/providers/Microsoft.Web/sites/soccer-scores-predictor-azure",
+    "appService.defaultWebAppToDeploy": "/subscriptions/fc011c7b-8150-4065-af8b-1a8487bc3f73/resourceGroups/srs2024-stu-g16/providers/Microsoft.Web/sites/msdocs-python-webapp-quickstart-A01",
     "appService.deploySubpath": "."
 }
