@@ -1,7 +1,5 @@
-Flask
-pandas
-numpy
-gunicorn
-logging
-pickle5
-pickle
+Flask==3.0.3
+pandas==1.4.3
+numpy==1.21.6
+gunicorn==20.1.0
+pickle5==0.0.11
