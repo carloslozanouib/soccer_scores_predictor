@@ -1,7 +1,5 @@
 Flask
 pandas
 numpy
-gunicorn
 openpyxl
 scikit-learn
-schedule

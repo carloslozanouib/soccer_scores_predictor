@@ -131,8 +131,17 @@
                 });
             });
 
-            // Set the initial countdown duration (24 hours from now)
-            var countdownDuration = 24 * 60 * 60 * 1000;
+            function calculateTimeUntilNext3AM() {
+                var now = new Date();
+                var next3AM = new Date();
+                next3AM.setHours(3, 0, 0, 0);
+
+                if (now >= next3AM) {
+                    next3AM.setDate(next3AM.getDate() + 1);
+                }
+
+                return next3AM.getTime() - now.getTime();
+            }
 
             function startCountdown(duration) {
                 var countDownDate = new Date().getTime() + duration;
@@ -150,13 +159,13 @@
                     if (distance < 0) {
                         clearInterval(x);
                         document.getElementById("time").innerHTML = "Updating...";
-                        startCountdown(countdownDuration); // Restart the countdown
+                        startCountdown(calculateTimeUntilNext3AM());
                     }
                 }, 1000);
             }
 
             // Start the countdown
-            startCountdown(countdownDuration);
+            startCountdown(calculateTimeUntilNext3AM());
         });
     </script>
 </body>
