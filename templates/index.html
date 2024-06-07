@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Match Predictor</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -14,153 +15,148 @@
         }
         .container {
             width: 100%;
-            max-width: 600px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
-            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent overlay */
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-        select, input[type="text"], button {
-            width: 100%;
-            padding: 8px;
-            margin-top: 8px;
-            margin-bottom: 16px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            box-sizing: border-box; /* Makes the padding not affect the width */
+        .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+            color: #fff;
+            background-color: #4CAF50;
+            border-color: transparent;
         }
-        button {
-            background-color: #f8f9fa;
-            color: black;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        .nav-tabs .nav-link {
+            color: #ddd;
         }
-        button:hover {
-            background-color: #e2e6ea;
+        .nav-tabs .nav-link:hover {
+            color: #fff;
         }
-        label {
-            font-weight: bold;
+        .tab-content {
+            margin-top: 20px;
         }
-        .loading {
-            text-align: center;
-            display: none;
+        .table th, .table td {
+            color: white;
         }
-        #result {
+        .table th {
+            background-color: #4CAF50;
+        }
+        .table thead th {
+            border: none;
+        }
+        #countdown {
             text-align: center;
             margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Match Predictor</h1>
-        <form id="prediction-form">
-            <div>
-                <label for="league">League:</label>
-                <select id="league" name="league">
-                    <option value="">Select League</option>
-                    {% for code, name in leagues.items() %}
-                        <option value="{{ code }}">{{ name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div>
-                <label for="HomeTeam">Home Team:</label>
-                <select id="HomeTeam" name="HomeTeam" disabled>
-                    <option value="">Select Home Team</option>
-                </select>
-            </div>
-            <div>
-                <label for="AwayTeam">Away Team:</label>
-                <select id="AwayTeam" name="AwayTeam" disabled>
-                    <option value="">Select Away Team</option>
-                </select>
-            </div>
-            <div>
-                <label for="AvgH">AvgH:</label>
-                <input type="text" id="AvgH" name="AvgH" required>
-            </div>
-            <div>
-                <label for="AvgD">AvgD:</label>
-                <input type="text" id="AvgD" name="AvgD" required>
-            </div>
-            <div>
-                <label for="AvgA">AvgA:</label>
-                <input type="text" id="AvgA" name="AvgA" required>
-            </div>
-            <div>
-                <label for="AvgMORE25">AvgMORE25:</label>
-                <input type="text" id="AvgMORE25" name="AvgMORE25" required>
-            </div>
-            <div>
-                <label for="AvgCLESS25">AvgCLESS25:</label>
-                <input type="text" id="AvgCLESS25" name="AvgCLESS25" required>
-            </div>
-            <button type="submit">Predict</button>
-        </form>
-        <div class="loading">Loading...</div>
-        <div id="result"></div>
+        <h1 class="text-center">Match Predictor</h1>
+        <ul class="nav nav-tabs" id="leagueTabs" role="tablist">
+            {% for code, name in leagues.items() %}
+                <li class="nav-item">
+                    <a class="nav-link {% if loop.first %}active{% endif %}" id="{{ code }}-tab" data-toggle="tab" href="#{{ code }}" role="tab" aria-controls="{{ code }}" aria-selected="true">{{ name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="tab-content" id="leagueTabsContent">
+            {% for code, name in leagues.items() %}
+                <div class="tab-pane fade {% if loop.first %}show active{% endif %}" id="{{ code }}" role="tabpanel" aria-labelledby="{{ code }}-tab">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-dark">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Home Team</th>
+                                    <th>Away Team</th>
+                                    <th>AvgH</th>
+                                    <th>AvgD</th>
+                                    <th>AvgA</th>
+                                    <th>AvgMORE25</th>
+                                    <th>AvgCLESS25</th>
+                                    <th>Prediction</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-{{ code }}">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div id="countdown">Time until next update: <span id="time"></span></div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#league').change(function() {
-                const league = $(this).val();
-                if (league) {
-                    $.getJSON(`/get_teams/${league}`, function(data) {
-                        let homeOptions = '<option value="">Select Home Team</option>';
-                        let awayOptions = '<option value="">Select Away Team</option>';
-                        data.forEach(team => {
-                            homeOptions += `<option value="${team}">${team}</option>`;
-                            awayOptions += `<option value="${team}">${team}</option>`;
-                        });
-                        $('#HomeTeam').html(homeOptions).prop('disabled', false);
-                        $('#AwayTeam').html(awayOptions).prop('disabled', false);
+            $.getJSON('/static/future_matches.json', function(data) {
+                $.each(data, function(league, matches) {
+                    let tableBody = $('#table-' + league);
+                    matches.forEach(function(match) {
+                        let predictionText = '';
+                        switch (match.Prediction) {
+                            case 'H':
+                                predictionText = 'Home Wins';
+                                break;
+                            case 'A':
+                                predictionText = 'Away Wins';
+                                break;
+                            case 'D':
+                                predictionText = 'Draw';
+                                break;
+                            default:
+                                predictionText = match.Prediction;
+                        }
+                        let row = '<tr>' +
+                            '<td>' + match.Date + '</td>' +
+                            '<td>' + match.Time + '</td>' +
+                            '<td>' + match.HomeTeam + '</td>' +
+                            '<td>' + match.AwayTeam + '</td>' +
+                            '<td>' + match.AvgH + '</td>' +
+                            '<td>' + match.AvgD + '</td>' +
+                            '<td>' + match.AvgA + '</td>' +
+                            '<td>' + match.AvgMORE25 + '</td>' +
+                            '<td>' + match.AvgCLESS25 + '</td>' +
+                            '<td>' + predictionText + '</td>' +
+                            '</tr>';
+                        tableBody.append(row);
                     });
-                } else {
-                    $('#HomeTeam').html('<option value="">Select Home Team</option>').prop('disabled', true);
-                    $('#AwayTeam').html('<option value="">Select Away Team</option>').prop('disabled', true);
-                }
-            });
-
-            $('#prediction-form').submit(function(event) {
-                event.preventDefault();
-                $('.loading').show();
-                const formData = {
-                    matches: [{
-                        league: $('#league').val(),
-                        HomeTeam: $('#HomeTeam').val(),
-                        AwayTeam: $('#AwayTeam').val(),
-                        AvgH: $('#AvgH').val(),
-                        AvgD: $('#AvgD').val(),
-                        AvgA: $('#AvgA').val(),
-                        AvgMORE25: $('#AvgMORE25').val(),
-                        AvgCLESS25: $('#AvgCLESS25').val()
-                    }]
-                };
-
-                $.ajax({
-                    url: '/predict',
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(formData),
-                    success: function(response) {
-                        $('.loading').hide();
-                        let resultsHtml = '<h2>Predictions</h2>';
-                        response.forEach(res => {
-                            resultsHtml += `<p>Home Team: ${res.HomeTeam}, Away Team: ${res.AwayTeam}, Prediction: ${res.Prediction}</p>`;
-                        });
-                        $('#result').html(resultsHtml);
-                    },
-                    error: function(error) {
-                        $('.loading').hide();
-                        $('#result').html('<p>Error making prediction. Please try again.</p>');
-                    }
                 });
             });
+
+            // Set the initial countdown duration (24 hours from now)
+            var countdownDuration = 24 * 60 * 60 * 1000;
+
+            function startCountdown(duration) {
+                var countDownDate = new Date().getTime() + duration;
+
+                var x = setInterval(function() {
+                    var now = new Date().getTime();
+                    var distance = countDownDate - now;
+
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    document.getElementById("time").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+
+                    if (distance < 0) {
+                        clearInterval(x);
+                        document.getElementById("time").innerHTML = "Updating...";
+                        startCountdown(countdownDuration); // Restart the countdown
+                    }
+                }, 1000);
+            }
+
+            // Start the countdown
+            startCountdown(countdownDuration);
         });
     </script>
 </body>

@@ -1,5 +1,6 @@
 # Define the URL of your Flask app's predict endpoint
-$url = "http://127.0.0.1:5000/predict"
+# $url = "http://127.0.0.1:5000/predict"
+$url = "https://soccer-predictor-testbranch.azurewebsites.net/predict"
 
 # Create the JSON payload
 $jsonPayload = @{

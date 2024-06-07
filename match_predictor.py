@@ -1,5 +1,3 @@
-#match_predictor.py
-
 import pandas as pd
 import numpy as np
 import pickle
@@ -415,6 +413,28 @@ def predict_match_result(league_id, HomeTeam, AwayTeam, AvgH, AvgD, AvgA, AvgMOR
     except Exception as e:
         logger.error(f"Error in prediction: {str(e)}")
         raise
+
+def predict_multiple_matches(matches):
+    results = []
+    for match in matches:
+        try:
+            prediction_result = predict_match_result(
+                match['league'],
+                match['HomeTeam'],
+                match['AwayTeam'],
+                match['AvgH'],
+                match['AvgD'],
+                match['AvgA'],
+                match['AvgMORE25'],
+                match['AvgCLESS25']
+            )
+            match.update(prediction_result)  # Aggiunge la previsione ai dati del match
+            results.append(match)
+        except Exception as e:
+            logger.error(f"Error predicting match result: {str(e)}")
+            match['error'] = str(e)
+            results.append(match)
+    return results
 
 # Example usage
 if __name__ == "__main__":

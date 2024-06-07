@@ -1,8 +1,15 @@
 #app.py
 
 from flask import Flask, request, jsonify, render_template
-from match_predictor import predict_match_result
+from match_predictor import predict_match_result, predict_multiple_matches
+from oracle import *
 import logging
+import schedule
+import time
+import threading
+import subprocess
+import json
+import sys
 
 app = Flask(__name__)
 
@@ -59,6 +66,7 @@ TEAMS = {
     "T1": ["Trabzonspor", "Kasimpasa", "Konyaspor", "Kayserispor", "Pendikspor", "Sivasspor", "Ad. Demirspor", "Fenerbahce", "Alanyaspor", "Karagumruk", "Antalyaspor", "Istanbulspor", "Rizespor", "Galatasaray", "Hatayspor", "Buyuksehyr", "Besiktas", "Gaziantep", "Ankaragucu", "Samsunspor"],
     "G1": ["Volos NFC", "Giannina", "OFI Crete", "PAOK", "Olympiakos", "Panetolikos", "Asteras Tripolis", "Panathinaikos", "AEK", "Lamia", "Kifisia", "Panserraikos", "Aris", "Atromitos"]
     }
+
 
 @app.route('/')
 def index():
@@ -125,6 +133,43 @@ def predict():
     except Exception as e:
         logger.error(f"Error in /predict route: {str(e)}")
         return jsonify({"error": str(e)}), 500
+
+def run_oracle_and_predict():
+    try:
+        # Esegui oracle.py usando l'interprete Python dell'ambiente virtuale
+        subprocess.run([sys.executable, 'oracle.py'], check=True)
+        
+        # Leggi future_matches.json
+        with open('static/future_matches.json', 'r') as file:
+            future_matches = json.load(file)
+        
+        # Prevedi risultati per ogni lega
+        for league, matches in future_matches.items():
+            predictions = predict_multiple_matches(matches)
+            future_matches[league] = predictions
+        
+        # Aggiorna future_matches.json con le previsioni
+        with open('static/future_matches.json', 'w') as file:
+            json.dump(future_matches, file, indent=4)
+        
+        logger.info("Successfully updated future_matches.json with predictions.")
+    except Exception as e:
+        logger.error(f"Error in run_oracle_and_predict: {str(e)}")
+
+# Funzione per eseguire il task periodicamente
+def run_schedule():
+    # Attendi 24 ore prima di eseguire il primo task
+    time.sleep(24 * 60 * 60)
+    # Esegui il task ogni giorno
+    schedule.every(1).days.do(run_oracle_and_predict)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
+# Avvia il task scheduler in un thread separato
+scheduler_thread = threading.Thread(target=run_schedule)
+scheduler_thread.daemon = True
+scheduler_thread.start()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
