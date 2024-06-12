@@ -1,5 +1,3 @@
-#match_predictor.py
-
 import pandas as pd
 import numpy as np
 import pickle
@@ -68,8 +66,12 @@ def predict_match_result(league_id, HomeTeam, AwayTeam, AvgH, AvgD, AvgA, AvgMOR
         with open(model_path, 'rb') as file:
             model = pickle.load(file)
         
+        # Ensure that the columns match those expected by the model
+        expected_columns = model.feature_names_in_
+        new_match_df = new_match_df[expected_columns]
+        
         # Make predictions using the model
-        predictions = model.predict(new_match_df.drop(columns=['HomeTeam', 'AwayTeam', 'FTR']))
+        predictions = model.predict(new_match_df)
         
         # Return a dictionary with prediction and team information
         return {
