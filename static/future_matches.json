@@ -24,7 +24,7 @@
             "AvgA": 2.22,
             "AvgMORE25": 1.38,
             "AvgCLESS25": 3.04,
-            "Prediction": "A"
+            "Prediction": "H"
         },
         {
             "league": "E0",
@@ -102,7 +102,7 @@
             "AvgA": 2.23,
             "AvgMORE25": 1.44,
             "AvgCLESS25": 2.76,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "E0",
@@ -143,7 +143,7 @@
             "AvgA": 2.78,
             "AvgMORE25": 1.72,
             "AvgCLESS25": 2.09,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "E1",
@@ -156,7 +156,7 @@
             "AvgA": 3.16,
             "AvgMORE25": 1.72,
             "AvgCLESS25": 2.11,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "E1",
@@ -221,7 +221,7 @@
             "AvgA": 2.03,
             "AvgMORE25": 1.63,
             "AvgCLESS25": 2.26,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "E1",
@@ -234,7 +234,7 @@
             "AvgA": 2.16,
             "AvgMORE25": 2.06,
             "AvgCLESS25": 1.75,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "E1",
@@ -247,7 +247,7 @@
             "AvgA": 3.51,
             "AvgMORE25": 1.87,
             "AvgCLESS25": 1.92,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "E1",
@@ -260,7 +260,7 @@
             "AvgA": 2.62,
             "AvgMORE25": 2.03,
             "AvgCLESS25": 1.77,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "E1",
@@ -273,7 +273,7 @@
             "AvgA": 3.57,
             "AvgMORE25": 1.91,
             "AvgCLESS25": 1.88,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "E1",
@@ -340,7 +340,7 @@
             "AvgA": 2.21,
             "AvgMORE25": 1.69,
             "AvgCLESS25": 2.11,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "E2",
@@ -353,7 +353,7 @@
             "AvgA": 3.45,
             "AvgMORE25": 1.88,
             "AvgCLESS25": 1.89,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "E2",
@@ -366,7 +366,7 @@
             "AvgA": 2.23,
             "AvgMORE25": 1.44,
             "AvgCLESS25": 2.66,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "E2",
@@ -379,7 +379,7 @@
             "AvgA": 2.86,
             "AvgMORE25": 2.33,
             "AvgCLESS25": 1.58,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "E2",
@@ -392,7 +392,7 @@
             "AvgA": 1.97,
             "AvgMORE25": 1.72,
             "AvgCLESS25": 2.07,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "E2",
@@ -405,7 +405,7 @@
             "AvgA": 2.67,
             "AvgMORE25": 2.09,
             "AvgCLESS25": 1.71,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "E2",
@@ -418,7 +418,7 @@
             "AvgA": 2.63,
             "AvgMORE25": 2.04,
             "AvgCLESS25": 1.73,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "E2",
@@ -431,7 +431,7 @@
             "AvgA": 3.32,
             "AvgMORE25": 1.83,
             "AvgCLESS25": 1.94,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "E2",
@@ -444,7 +444,7 @@
             "AvgA": 3.04,
             "AvgMORE25": 1.77,
             "AvgCLESS25": 2.01,
-            "Prediction": "H"
+            "Prediction": "D"
         }
     ],
     "E3": [
@@ -459,7 +459,7 @@
             "AvgA": 2.64,
             "AvgMORE25": 1.59,
             "AvgCLESS25": 2.29,
-            "Prediction": "A"
+            "Prediction": "H"
         },
         {
             "league": "E3",
@@ -472,7 +472,7 @@
             "AvgA": 2.85,
             "AvgMORE25": 1.69,
             "AvgCLESS25": 2.11,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "E3",
@@ -485,7 +485,7 @@
             "AvgA": 2.72,
             "AvgMORE25": 1.72,
             "AvgCLESS25": 2.05,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "E3",
@@ -511,7 +511,7 @@
             "AvgA": 3.36,
             "AvgMORE25": 2.18,
             "AvgCLESS25": 1.64,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "E3",
@@ -550,7 +550,7 @@
             "AvgA": 1.96,
             "AvgMORE25": 1.78,
             "AvgCLESS25": 1.99,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "E3",
@@ -602,7 +602,7 @@
             "AvgA": 2.73,
             "AvgMORE25": 1.68,
             "AvgCLESS25": 2.11,
-            "Prediction": "H"
+            "Prediction": "D"
         }
     ],
     "EC": [
@@ -617,7 +617,7 @@
             "AvgA": 8.44,
             "AvgMORE25": 1.47,
             "AvgCLESS25": 2.55,
-            "error": "\"['HS', 'AS', 'HST', 'AST', 'HC', 'AC'] not in index\""
+            "Prediction": "H"
         },
         {
             "league": "EC",
@@ -630,7 +630,7 @@
             "AvgA": 5.06,
             "AvgMORE25": 1.69,
             "AvgCLESS25": 2.09,
-            "error": "\"['HS', 'AS', 'HST', 'AST', 'HC', 'AC'] not in index\""
+            "Prediction": "H"
         },
         {
             "league": "EC",
@@ -643,7 +643,7 @@
             "AvgA": 2.89,
             "AvgMORE25": 1.68,
             "AvgCLESS25": 2.1,
-            "error": "\"['HS', 'AS', 'HST', 'AST', 'HC', 'AC'] not in index\""
+            "Prediction": "D"
         },
         {
             "league": "EC",
@@ -656,7 +656,7 @@
             "AvgA": 5.12,
             "AvgMORE25": 1.56,
             "AvgCLESS25": 2.33,
-            "error": "\"['HS', 'AS', 'HST', 'AST', 'HC', 'AC'] not in index\""
+            "Prediction": "H"
         },
         {
             "league": "EC",
@@ -669,7 +669,7 @@
             "AvgA": 2.26,
             "AvgMORE25": 1.67,
             "AvgCLESS25": 2.11,
-            "error": "\"['HS', 'AS', 'HST', 'AST', 'HC', 'AC'] not in index\""
+            "Prediction": "D"
         },
         {
             "league": "EC",
@@ -682,7 +682,7 @@
             "AvgA": 2.49,
             "AvgMORE25": 1.48,
             "AvgCLESS25": 2.52,
-            "error": "\"['HS', 'AS', 'HST', 'AST', 'HC', 'AC'] not in index\""
+            "Prediction": "H"
         },
         {
             "league": "EC",
@@ -695,7 +695,7 @@
             "AvgA": 1.94,
             "AvgMORE25": 1.68,
             "AvgCLESS25": 2.1,
-            "error": "\"['HS', 'AS', 'HST', 'AST', 'HC', 'AC'] not in index\""
+            "Prediction": "A"
         },
         {
             "league": "EC",
@@ -708,7 +708,7 @@
             "AvgA": 3.15,
             "AvgMORE25": 1.69,
             "AvgCLESS25": 2.08,
-            "error": "\"['HS', 'AS', 'HST', 'AST', 'HC', 'AC'] not in index\""
+            "Prediction": "D"
         },
         {
             "league": "EC",
@@ -721,7 +721,7 @@
             "AvgA": 3.92,
             "AvgMORE25": 1.76,
             "AvgCLESS25": 2.0,
-            "error": "\"['HS', 'AS', 'HST', 'AST', 'HC', 'AC'] not in index\""
+            "Prediction": "D"
         },
         {
             "league": "EC",
@@ -734,7 +734,7 @@
             "AvgA": 3.4,
             "AvgMORE25": 1.89,
             "AvgCLESS25": 1.85,
-            "error": "\"['HS', 'AS', 'HST', 'AST', 'HC', 'AC'] not in index\""
+            "Prediction": "D"
         },
         {
             "league": "EC",
@@ -747,7 +747,7 @@
             "AvgA": 5.05,
             "AvgMORE25": 1.73,
             "AvgCLESS25": 2.03,
-            "error": "\"['HS', 'AS', 'HST', 'AST', 'HC', 'AC'] not in index\""
+            "Prediction": "H"
         },
         {
             "league": "EC",
@@ -760,7 +760,7 @@
             "AvgA": 4.45,
             "AvgMORE25": 1.75,
             "AvgCLESS25": 2.0,
-            "error": "\"['HS', 'AS', 'HST', 'AST', 'HC', 'AC'] not in index\""
+            "Prediction": "D"
         }
     ],
     "SC0": [
@@ -801,7 +801,7 @@
             "AvgA": 1.68,
             "AvgMORE25": 1.45,
             "AvgCLESS25": 2.65,
-            "Prediction": "A"
+            "Prediction": "H"
         },
         {
             "league": "SC0",
@@ -814,7 +814,7 @@
             "AvgA": 1.79,
             "AvgMORE25": 1.76,
             "AvgCLESS25": 2.02,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "SC0",
@@ -840,7 +840,7 @@
             "AvgA": 2.53,
             "AvgMORE25": 1.72,
             "AvgCLESS25": 2.07,
-            "Prediction": "A"
+            "Prediction": "D"
         }
     ],
     "SC1": [
@@ -855,7 +855,7 @@
             "AvgA": 3.21,
             "AvgMORE25": 1.74,
             "AvgCLESS25": 2.02,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "SC1",
@@ -894,7 +894,7 @@
             "AvgA": 3.68,
             "AvgMORE25": 1.99,
             "AvgCLESS25": 1.75,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "SC1",
@@ -907,7 +907,7 @@
             "AvgA": 3.22,
             "AvgMORE25": 1.71,
             "AvgCLESS25": 2.06,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "SC1",
@@ -974,7 +974,7 @@
             "AvgA": 2.58,
             "AvgMORE25": 1.7,
             "AvgCLESS25": 2.07,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "SC2",
@@ -987,7 +987,7 @@
             "AvgA": 3.2,
             "AvgMORE25": 1.63,
             "AvgCLESS25": 2.19,
-            "Prediction": "A"
+            "Prediction": "D"
         }
     ],
     "SC3": [
@@ -1028,7 +1028,7 @@
             "AvgA": 1.91,
             "AvgMORE25": 1.76,
             "AvgCLESS25": 1.99,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "SC3",
@@ -1041,7 +1041,7 @@
             "AvgA": 2.56,
             "AvgMORE25": 1.78,
             "AvgCLESS25": 1.96,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "SC3",
@@ -1082,7 +1082,7 @@
             "AvgA": 2.4,
             "AvgMORE25": 1.47,
             "AvgCLESS25": 2.7,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "D1",
@@ -1108,7 +1108,7 @@
             "AvgA": 2.06,
             "AvgMORE25": 1.23,
             "AvgCLESS25": 4.09,
-            "Prediction": "A"
+            "Prediction": "H"
         },
         {
             "league": "D1",
@@ -1147,7 +1147,7 @@
             "AvgA": 3.51,
             "AvgMORE25": 1.92,
             "AvgCLESS25": 1.92,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "D1",
@@ -1173,7 +1173,7 @@
             "AvgA": 2.21,
             "AvgMORE25": 1.75,
             "AvgCLESS25": 2.11,
-            "Prediction": "A"
+            "Prediction": "D"
         }
     ],
     "D2": [
@@ -1188,7 +1188,7 @@
             "AvgA": 2.24,
             "AvgMORE25": 1.31,
             "AvgCLESS25": 3.26,
-            "Prediction": "A"
+            "Prediction": "H"
         },
         {
             "league": "D2",
@@ -1214,7 +1214,7 @@
             "AvgA": 2.95,
             "AvgMORE25": 1.42,
             "AvgCLESS25": 2.73,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "D2",
@@ -1240,7 +1240,7 @@
             "AvgA": 2.82,
             "AvgMORE25": 1.45,
             "AvgCLESS25": 2.63,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "D2",
@@ -1253,7 +1253,7 @@
             "AvgA": 2.74,
             "AvgMORE25": 1.5,
             "AvgCLESS25": 2.44,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "D2",
@@ -1266,7 +1266,7 @@
             "AvgA": 3.8,
             "AvgMORE25": 1.53,
             "AvgCLESS25": 2.43,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "D2",
@@ -1292,7 +1292,7 @@
             "AvgA": 2.19,
             "AvgMORE25": 1.52,
             "AvgCLESS25": 2.43,
-            "Prediction": "A"
+            "Prediction": "D"
         }
     ],
     "SP1": [
@@ -1320,7 +1320,7 @@
             "AvgA": 2.3,
             "AvgMORE25": 1.56,
             "AvgCLESS25": 2.47,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "SP1",
@@ -1333,7 +1333,7 @@
             "AvgA": 2.93,
             "AvgMORE25": 1.93,
             "AvgCLESS25": 1.9,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "SP1",
@@ -1346,7 +1346,7 @@
             "AvgA": 3.43,
             "AvgMORE25": 1.84,
             "AvgCLESS25": 1.99,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "SP1",
@@ -1359,7 +1359,7 @@
             "AvgA": 2.41,
             "AvgMORE25": 1.76,
             "AvgCLESS25": 2.08,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "SP1",
@@ -1398,7 +1398,7 @@
             "AvgA": 3.89,
             "AvgMORE25": 1.94,
             "AvgCLESS25": 1.89,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "SP1",
@@ -1424,7 +1424,7 @@
             "AvgA": 1.83,
             "AvgMORE25": 1.5,
             "AvgCLESS25": 2.57,
-            "Prediction": "A"
+            "Prediction": "D"
         }
     ],
     "SP2": [
@@ -1439,7 +1439,7 @@
             "AvgA": 2.45,
             "AvgMORE25": 2.04,
             "AvgCLESS25": 1.74,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "SP2",
@@ -1452,7 +1452,7 @@
             "AvgA": 3.16,
             "AvgMORE25": 1.96,
             "AvgCLESS25": 1.81,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "SP2",
@@ -1465,7 +1465,7 @@
             "AvgA": 2.87,
             "AvgMORE25": 2.08,
             "AvgCLESS25": 1.71,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "SP2",
@@ -1478,7 +1478,7 @@
             "AvgA": 4.08,
             "AvgMORE25": 1.98,
             "AvgCLESS25": 1.79,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "SP2",
@@ -1530,7 +1530,7 @@
             "AvgA": 3.26,
             "AvgMORE25": 1.89,
             "AvgCLESS25": 1.88,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "SP2",
@@ -1556,7 +1556,7 @@
             "AvgA": 1.66,
             "AvgMORE25": 1.56,
             "AvgCLESS25": 2.34,
-            "Prediction": "A"
+            "Prediction": "H"
         },
         {
             "league": "SP2",
@@ -1569,7 +1569,7 @@
             "AvgA": 3.66,
             "AvgMORE25": 1.98,
             "AvgCLESS25": 1.78,
-            "Prediction": "H"
+            "Prediction": "D"
         }
     ],
     "I1": [
@@ -1623,7 +1623,7 @@
             "AvgA": 2.14,
             "AvgMORE25": 1.92,
             "AvgCLESS25": 1.9,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "I1",
@@ -1729,7 +1729,7 @@
             "AvgA": 4.58,
             "AvgMORE25": 2.21,
             "AvgCLESS25": 1.64,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "I2",
@@ -1755,7 +1755,7 @@
             "AvgA": 2.06,
             "AvgMORE25": 1.78,
             "AvgCLESS25": 2.0,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "I2",
@@ -1794,7 +1794,7 @@
             "AvgA": 1.73,
             "AvgMORE25": 1.43,
             "AvgCLESS25": 2.72,
-            "Prediction": "A"
+            "Prediction": "H"
         },
         {
             "league": "I2",
@@ -1807,7 +1807,7 @@
             "AvgA": 2.06,
             "AvgMORE25": 1.77,
             "AvgCLESS25": 2.01,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "I2",
@@ -1820,7 +1820,7 @@
             "AvgA": 1.99,
             "AvgMORE25": 1.73,
             "AvgCLESS25": 2.07,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "I2",
@@ -1846,7 +1846,7 @@
             "AvgA": 2.23,
             "AvgMORE25": 1.95,
             "AvgCLESS25": 1.83,
-            "Prediction": "A"
+            "Prediction": "D"
         }
     ],
     "F1": [
@@ -1874,7 +1874,7 @@
             "AvgA": 1.81,
             "AvgMORE25": 1.83,
             "AvgCLESS25": 1.99,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "F1",
@@ -1965,7 +1965,7 @@
             "AvgA": 2.46,
             "AvgMORE25": 1.6,
             "AvgCLESS25": 2.36,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "F1",
@@ -1978,7 +1978,7 @@
             "AvgA": 1.89,
             "AvgMORE25": 1.65,
             "AvgCLESS25": 2.24,
-            "Prediction": "A"
+            "Prediction": "D"
         }
     ],
     "F2": [
@@ -2019,7 +2019,7 @@
             "AvgA": 1.84,
             "AvgMORE25": 1.85,
             "AvgCLESS25": 1.94,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "F2",
@@ -2058,7 +2058,7 @@
             "AvgA": 2.92,
             "AvgMORE25": 1.84,
             "AvgCLESS25": 1.95,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "F2",
@@ -2071,7 +2071,7 @@
             "AvgA": 4.31,
             "AvgMORE25": 1.85,
             "AvgCLESS25": 1.93,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "F2",
@@ -2125,7 +2125,7 @@
             "AvgA": 3.91,
             "AvgMORE25": 1.67,
             "AvgCLESS25": 2.16,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "B1",
@@ -2151,7 +2151,7 @@
             "AvgA": 3.71,
             "AvgMORE25": 1.58,
             "AvgCLESS25": 2.33,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "B1",
@@ -2164,7 +2164,7 @@
             "AvgA": 3.22,
             "AvgMORE25": 1.5,
             "AvgCLESS25": 2.5,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "B1",
@@ -2177,7 +2177,7 @@
             "AvgA": 1.82,
             "AvgMORE25": 1.73,
             "AvgCLESS25": 2.07,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "B1",
@@ -2203,7 +2203,7 @@
             "AvgA": 4.5,
             "AvgMORE25": 1.58,
             "AvgCLESS25": 2.31,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "B1",
@@ -2216,7 +2216,7 @@
             "AvgA": 2.81,
             "AvgMORE25": 1.59,
             "AvgCLESS25": 2.3,
-            "Prediction": "A"
+            "Prediction": "D"
         }
     ],
     "N1": [
@@ -2231,7 +2231,7 @@
             "AvgA": 2.14,
             "AvgMORE25": 1.68,
             "AvgCLESS25": 2.17,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "N1",
@@ -2244,7 +2244,7 @@
             "AvgA": 6.34,
             "AvgMORE25": 1.49,
             "AvgCLESS25": 2.55,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "N1",
@@ -2296,7 +2296,7 @@
             "AvgA": 3.45,
             "AvgMORE25": 1.51,
             "AvgCLESS25": 2.48,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "N1",
@@ -2350,7 +2350,7 @@
             "AvgA": 4.6,
             "AvgMORE25": 1.82,
             "AvgCLESS25": 1.99,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "P1",
@@ -2376,7 +2376,7 @@
             "AvgA": 2.43,
             "AvgMORE25": 1.73,
             "AvgCLESS25": 2.1,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "P1",
@@ -2389,7 +2389,7 @@
             "AvgA": 5.75,
             "AvgMORE25": 1.77,
             "AvgCLESS25": 2.02,
-            "Prediction": "D"
+            "Prediction": "H"
         },
         {
             "league": "P1",
@@ -2402,7 +2402,7 @@
             "AvgA": 4.98,
             "AvgMORE25": 1.72,
             "AvgCLESS25": 2.11,
-            "Prediction": "D"
+            "Prediction": "H"
         },
         {
             "league": "P1",
@@ -2415,7 +2415,7 @@
             "AvgA": 2.42,
             "AvgMORE25": 1.64,
             "AvgCLESS25": 2.24,
-            "Prediction": "D"
+            "Prediction": "H"
         },
         {
             "league": "P1",
@@ -2454,7 +2454,7 @@
             "AvgA": 2.08,
             "AvgMORE25": 1.57,
             "AvgCLESS25": 2.38,
-            "Prediction": "A"
+            "Prediction": "H"
         }
     ],
     "T1": [
@@ -2495,7 +2495,7 @@
             "AvgA": 1.81,
             "AvgMORE25": 1.52,
             "AvgCLESS25": 2.42,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "T1",
@@ -2534,7 +2534,7 @@
             "AvgA": 1.98,
             "AvgMORE25": 1.46,
             "AvgCLESS25": 2.6,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "T1",
@@ -2560,7 +2560,7 @@
             "AvgA": 2.2,
             "AvgMORE25": 1.6,
             "AvgCLESS25": 2.28,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "T1",
@@ -2573,7 +2573,7 @@
             "AvgA": 2.25,
             "AvgMORE25": 1.68,
             "AvgCLESS25": 2.14,
-            "Prediction": "H"
+            "Prediction": "D"
         }
     ],
     "G1": [
@@ -2588,7 +2588,7 @@
             "AvgA": 3.23,
             "AvgMORE25": 1.75,
             "AvgCLESS25": 2.02,
-            "Prediction": "H"
+            "Prediction": "D"
         },
         {
             "league": "G1",
@@ -2601,7 +2601,7 @@
             "AvgA": 1.92,
             "AvgMORE25": 1.82,
             "AvgCLESS25": 1.95,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "G1",
@@ -2653,7 +2653,7 @@
             "AvgA": 1.72,
             "AvgMORE25": 1.9,
             "AvgCLESS25": 1.85,
-            "Prediction": "A"
+            "Prediction": "D"
         },
         {
             "league": "G1",
@@ -2666,7 +2666,7 @@
             "AvgA": 2.5,
             "AvgMORE25": 1.85,
             "AvgCLESS25": 1.91,
-            "Prediction": "A"
+            "Prediction": "D"
         }
     ]
 }

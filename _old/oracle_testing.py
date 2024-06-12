@@ -1,8 +1,31 @@
-#oracle.py
-
 import pandas as pd
 import json
-from config import LEAGUES
+
+# Define the leagues and corresponding sheets
+leagues = {
+    "E0": "Premier League",
+    "E1": "EFL Championship",
+    "E2": "EFL League One",
+    "E3": "EFL League Two",
+    "EC": "National League",
+    "SC0": "Scottish Premiership",
+    "SC1": "Scottish Championship",
+    "SC2": "Scottish League One",
+    "SC3": "Scottish League Two",
+    "D1": "Bundesliga",
+    "D2": "Bundesliga 2",
+    "SP1": "La Liga",
+    "SP2": "Segunda División",
+    "I1": "Serie A",
+    "I2": "Serie B",
+    "F1": "Ligue 1",
+    "F2": "Ligue 2",
+    "B1": "Belgian Pro League",
+    "N1": "Eredivisie",
+    "P1": "Primeira Liga",
+    "T1": "Süper Lig",
+    "G1": "Super League Greece"
+}
 
 # Define the column indexes for each sheet
 column_indexes = {
@@ -15,7 +38,8 @@ column_indexes = {
     "AvgD": "AvgD",
     "AvgA": "AvgA",
     "AvgMORE25": "Avg>2.5",
-    "AvgCLESS25": "Avg<2.5"
+    "AvgCLESS25": "Avg<2.5",
+    "Result": "FTR"  # Assuming 'FTR' contains the actual result
 }
 
 # Define the number of last matches to retrieve for each league
@@ -67,7 +91,7 @@ def generate_future_matches():
     # Generate JSON output for all leagues
     all_leagues_data = {}
 
-    for league_code, sheet_name in LEAGUES.items():
+    for league_code, sheet_name in leagues.items():
         if league_code in excel_data:
             print(f"Processing sheet: {sheet_name} (Code: {league_code})")
             df = excel_data[league_code]
