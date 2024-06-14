@@ -21,13 +21,16 @@ FUTURE_MATCHES = None
 
 def load_future_matches():
     global FUTURE_MATCHES
-    if FUTURE_MATCHES is None:
-        try:
-            with open('static/future_matches.json', 'r') as file:
-                FUTURE_MATCHES = json.load(file)
-            logger.info("Loaded future_matches.json into memory")
-        except Exception as e:
-            logger.error(f"Error loading future_matches.json: {str(e)}")
+    try:
+        with open('static/future_matches.json', 'r') as file:
+            FUTURE_MATCHES = json.load(file)
+        logger.info("Loaded future_matches.json into memory")
+    except Exception as e:
+        logger.error(f"Error loading future_matches.json: {str(e)}")
+        FUTURE_MATCHES = {}
+
+# Load future matches when the application starts
+load_future_matches()
 
 @app.route('/')
 def index():
@@ -41,6 +44,9 @@ def get_teams(league):
 @app.route('/predict', methods=['GET'])
 def predict():
     try:
+        if FUTURE_MATCHES is None or not FUTURE_MATCHES:
+            return jsonify({"error": "Future matches data not loaded"}), 500
+        
         results = []
 
         # Reverse the LEAGUES dictionary to map keys to names
@@ -110,5 +116,4 @@ def run_oracle_and_predict():
 
 if __name__ == '__main__':
     #run_oracle_and_predict()
-    load_future_matches()
     app.run(host='0.0.0.0', port=8000)
