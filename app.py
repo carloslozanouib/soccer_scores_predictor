@@ -6,8 +6,7 @@ import sys
 from flask import Flask, request, jsonify, render_template, Response
 from match_predictor import predict_multiple_matches, predict_match_result
 from oracle import *
-from config import LEAGUES
-from config import TEAMS
+from config import LEAGUES, TEAMS
 import logging
 from tabulate import tabulate
 
@@ -16,6 +15,19 @@ app = Flask(__name__)
 # Initialize logger
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+
+# Cache future matches in memory
+FUTURE_MATCHES = None
+
+def load_future_matches():
+    global FUTURE_MATCHES
+    if FUTURE_MATCHES is None:
+        try:
+            with open('static/future_matches.json', 'r') as file:
+                FUTURE_MATCHES = json.load(file)
+            logger.info("Loaded future_matches.json into memory")
+        except Exception as e:
+            logger.error(f"Error loading future_matches.json: {str(e)}")
 
 @app.route('/')
 def index():
@@ -29,17 +41,13 @@ def get_teams(league):
 @app.route('/predict', methods=['GET'])
 def predict():
     try:
-        # Load future matches from JSON file
-        with open('static/future_matches.json', 'r') as file:
-            future_matches = json.load(file)
-        
         results = []
-        
+
         # Reverse the LEAGUES dictionary to map keys to names
         league_names = {v: k for k, v in LEAGUES.items()}
-        
+
         # Flatten the JSON structure to match the required format
-        for league_key, matches in future_matches.items():
+        for league_key, matches in FUTURE_MATCHES.items():
             league_name = LEAGUES.get(league_key, league_key)
             for match in matches:
                 match_data = [
@@ -56,14 +64,14 @@ def predict():
                     match.get("Prediction")
                 ]
                 results.append(match_data)
-        
+
         # Format the results as a table using tabulate
         headers = [
             "League", "Date", "Time", "HomeTeam", "AwayTeam",
             "AvgH", "AvgD", "AvgA", "AvgMORE25", "AvgCLESS25", "Prediction"
         ]
         formatted_table = tabulate(results, headers)
-        
+
         return Response(formatted_table, mimetype='text/plain')
     except Exception as e:
         logger.error(f"Error in /predict route: {str(e)}")
@@ -102,8 +110,5 @@ def run_oracle_and_predict():
 
 if __name__ == '__main__':
     #run_oracle_and_predict()
+    load_future_matches()
     app.run(host='0.0.0.0', port=8000)
-
-#Request Example:
-#curl http://localhost:8000/predict
-#(curl http://localhost:8000/predict).Content
