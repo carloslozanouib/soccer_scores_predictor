@@ -1,1 +1,5 @@
-Invoke-RestMethod -Uri "http://localhost:5000/predict" -Method Post -Body (@{ league = "I1"; match = @{ HomeTeam = "Fiorentina"; AwayTeam = "Napoli"; AvgH = 2.25; AvgD = 3.4; AvgA = 3.10; AvgMORE25 = 1.72; AvgCLESS25 = 2.10 } } | ConvertTo-Json) -ContentType "application/json"
+Just run app.py and do a request like this:
+
+(curl http://localhost:8000/predict).Content
+
+In order to retrieve predictions for the last games
