@@ -1,4 +1,4 @@
-# config.py
+#config.py
 
 LEAGUES = {
     "E0": "Premier League",
@@ -23,6 +23,31 @@ LEAGUES = {
     "P1": "Primeira Liga",
     "T1": "Süper Lig",
     "G1": "Super League Greece"
+}
+
+num_last_matches = {
+    "E0": 10,
+    "E1": 12,
+    "E2": 12,
+    "E3": 12,
+    "EC": 12,
+    "SC0": 6,
+    "SC1": 5,
+    "SC2": 5,
+    "SC3": 5,
+    "D1": 9,
+    "D2": 9,
+    "SP1": 10,
+    "SP2": 11,
+    "I1": 10,
+    "I2": 10,
+    "F1": 9,
+    "F2": 10,
+    "B1": 8,
+    "N1": 9,
+    "P1": 9,
+    "T1": 10,
+    "G1": 7
 }
 
 TEAMS = {

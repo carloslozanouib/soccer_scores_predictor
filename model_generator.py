@@ -3,13 +3,17 @@
 import pandas as pd
 import numpy as np
 import os
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import classification_report
 import pickle
+import logging
 from config import LEAGUES
 
-# Function to process each league
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 def process_league(league_id, league_name):
     raw_data_files = [
         f"static/data/1718/all-euro-data-2017-2018.xlsx",
@@ -18,7 +22,7 @@ def process_league(league_id, league_name):
         f"static/data/2021/all-euro-data-2020-2021.xlsx",
         f"static/data/2122/all-euro-data-2021-2022.xlsx",
         f"static/data/2223/all-euro-data-2022-2023.xlsx",
-        f"static/data/2324/all-euro-data-2023-2024.xlsx",
+        f"static/data/2324/all-euro-data-2023-2024-first.xlsx",
     ]
 
     data_frames = []
@@ -59,23 +63,88 @@ def process_league(league_id, league_name):
         data_frames[i] = data_frames[i].loc[:, ~data_frames[i].columns.duplicated()]
 
     # Define required columns
-    columns_req = ['HomeTeam', 'AwayTeam', 'FTR', 'FTHG', 'FTAG', 'HS', 'AS', 'HST', 'AST', 'HC', 'AC', 'HY', 'AY', 'HR', 'AR', 'AvgH', 'AvgD', 'AvgA', 'AvgMORE25', 'AvgCLESS25']
+    columns_req = ['HomeTeam', 'AwayTeam', 'FTR', 'AvgH', 'AvgD', 'AvgA', 'AvgMORE25', 'AvgCLESS25', 'FTHG', 'FTAG']
 
-    # Add missing columns with 0 values if they are not present in the dataframe
-    for df in data_frames:
-        for col in columns_req:
-            if col not in df.columns:
-                df[col] = 0
-    
-    # Remove duplicate columns, keeping only the first occurrence
-    for i in range(len(data_frames)):
-        data_frames[i] = data_frames[i].loc[:, ~data_frames[i].columns.duplicated()]
-    
     # Select required columns and ensure consistency
     playing_statistics = [df[columns_req].copy() for df in data_frames]
 
     # Concatenate data
     updated_playing_stat = pd.concat(playing_statistics, ignore_index=True)
+
+    print(updated_playing_stat.tail())
+
+    def calculate_goals_last_five(pstat):
+        if 'FTHG' not in pstat.columns or 'FTAG' not in pstat.columns:
+            return pstat
+        pstat['HomeGoalsScoredHome'] = 0
+        pstat['HomeGoalsConcededHome'] = 0
+        pstat['AwayGoalsScoredAway'] = 0
+        pstat['AwayGoalsConcededAway'] = 0
+        for index in range(len(pstat)):
+            home_name = pstat.at[index, 'HomeTeam']
+            away_name = pstat.at[index, 'AwayTeam']
+            home_matches = pstat[(pstat['HomeTeam'] == home_name) & (pstat.index < index)].tail(5)
+            away_matches = pstat[(pstat['AwayTeam'] == away_name) & (pstat.index < index)].tail(5)
+            pstat.at[index, 'HomeGoalsScoredHome'] = home_matches['FTHG'].sum()
+            pstat.at[index, 'HomeGoalsConcededHome'] = home_matches['FTAG'].sum()
+            pstat.at[index, 'AwayGoalsScoredAway'] = away_matches['FTAG'].sum()
+            pstat.at[index, 'AwayGoalsConcededAway'] = away_matches['FTHG'].sum()
+        return pstat
+
+    updated_playing_stat = calculate_goals_last_five(updated_playing_stat)
+
+    def lastFiveAveragePointsHomeAndAway(pstat, pstat_size):
+        home_name = pstat.iloc[pstat_size - 1]["HomeTeam"]
+        away_name = pstat.iloc[pstat_size - 1]["AwayTeam"]
+        current = pstat_size - 1
+        hh, ha, ah, aa = 0, 0, 0, 0  # Counters for the last 5 matches
+        tphh, tpha, tpah, tpaa = 0, 0, 0, 0
+        i = pstat_size - 2
+        while (hh < 5 or ha < 5 or ah < 5 or aa < 5) and i >= 0:
+            match_home = pstat.iloc[i]["HomeTeam"]
+            match_away = pstat.iloc[i]["AwayTeam"]
+            ftr = pstat.iloc[i]["FTR"]
+            if home_name == match_home and hh < 5:
+                hh += 1
+                if ftr == "H":
+                    tphh += 3
+                elif ftr == "D":
+                    tphh += 1
+            if home_name == match_away and ha < 5:
+                ha += 1
+                if ftr == "A":
+                    tpha += 3
+                elif ftr == "D":
+                    tpha += 1
+            if away_name == match_home and ah < 5:
+                ah += 1
+                if ftr == "H":
+                    tpah += 3
+                elif ftr == "D":
+                    tpah += 1
+            if away_name == match_away and aa < 5:
+                aa += 1
+                if ftr == "A":
+                    tpaa += 3
+                elif ftr == "D":
+                    tpaa += 1
+            i -= 1
+        aphh = tphh / max(hh, 1)
+        apha = tpha / max(ha, 1)
+        apah = tpah / max(ah, 1)
+        apaa = tpaa / max(aa, 1)
+        pstat.at[current, "APHH"] = aphh
+        pstat.at[current, "APHA"] = apha
+        pstat.at[current, "APAH"] = apah
+        pstat.at[current, "APAA"] = apaa
+        return pstat
+
+    i = len(updated_playing_stat)
+    while i > 1:
+        updated_playing_stat = lastFiveAveragePointsHomeAndAway(updated_playing_stat, i)
+        if i % 100 == 0:
+            print(i)
+        i -= 1
 
     # Clean and save the dataframe
     x = updated_playing_stat.copy()
@@ -90,52 +159,47 @@ def process_league(league_id, league_name):
     # Save to CSV
     x.to_csv(f'{output_dir}/{league_id}_dataframe.csv', index=False)
 
-# Function to process and train each league
+    # Train and save model
+    process_and_train_league(league_id)
+
 def process_and_train_league(league_id):
-    # Load file
     try:
-        filepath = f"static/models/{league_id}/{league_id}_dataframe.csv"
+        filepath = f'static/models/{league_id}/{league_id}_dataframe.csv'
         x = pd.read_csv(filepath, delimiter=",", header=0, index_col=None)
     except FileNotFoundError:
         print(f"File not found for league: {league_id}")
         return
     
-    # Eliminate unnecessary columns
-    studying_features = x.drop(columns=['HomeTeam', 'AwayTeam'])
+    studying_features = x.drop(columns=['HomeTeam', 'AwayTeam', 'FTHG', 'FTAG'])
     
-    # Create a copy of the DataFrame
     x = studying_features.copy()
     
-    # Convert all columns to float
     for col in x.columns:
-        if col != 'FTR':  # Exclude the target column
+        if col != 'FTR':
             x[col] = x[col].astype(float)
     
-    # Separate features and target
     X = x.drop(columns=['FTR'])
     y = x['FTR']
     
-    # Split data into training and test sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    
-    # Train the Naive Bayes model
+    # Use cross-validation to better understand model performance
     model = GaussianNB()
-    model.fit(X_train, y_train)
+    scores = cross_val_score(model, X, y, cv=5, scoring='f1_macro')
+    logger.info(f"Cross-validation F1 scores for league {league_id}: {scores}")
+    logger.info(f"Mean cross-validation F1 score for league {league_id}: {scores.mean()}")
+
+    # Train the Naive Bayes model
+    model.fit(X, y)
     
-    # Make predictions on the test set
-    y_pred = model.predict(X_test)
+    y_pred = model.predict(X)
     
-    # Evaluate the model performance
-    print(f"Classification report for league: {league_id}")
-    print(classification_report(y_test, y_pred))
-    print("\n")
+    logger.info(f"Classification report for league {league_id}")
+    logger.info(classification_report(y, y_pred))
     
     # Save the model with Pickle
     model_filepath = f'static/models/{league_id}/{league_id}_model.pkl'
     with open(model_filepath, 'wb') as file:
         pickle.dump(model, file)
 
-# Loop through each league and process
+# Loop through each league
 for league_id, league_name in LEAGUES.items():
     process_league(league_id, league_name)
-    process_and_train_league(league_id)

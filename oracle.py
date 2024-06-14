@@ -2,7 +2,7 @@
 
 import pandas as pd
 import json
-from config import LEAGUES
+from config import LEAGUES, num_last_matches
 
 # Define the column indexes for each sheet
 column_indexes = {
@@ -16,32 +16,6 @@ column_indexes = {
     "AvgA": "AvgA",
     "AvgMORE25": "Avg>2.5",
     "AvgCLESS25": "Avg<2.5"
-}
-
-# Define the number of last matches to retrieve for each league
-num_last_matches = {
-    "E0": 10,
-    "E1": 12,
-    "E2": 12,
-    "E3": 12,
-    "EC": 12,
-    "SC0": 6,
-    "SC1": 6,
-    "SC2": 5,
-    "SC3": 5,
-    "D1": 9,
-    "D2": 9,
-    "SP1": 10,
-    "SP2": 11,
-    "I1": 10,
-    "I2": 11,
-    "F1": 10,
-    "F2": 10,
-    "B1": 8,
-    "N1": 9,
-    "P1": 9,
-    "T1": 9,
-    "G1": 7
 }
 
 # Function to parse the match row
@@ -58,7 +32,7 @@ def parse_match_row(row):
 # Function to generate future matches JSON
 def generate_future_matches():
     # Read data from Excel file
-    file_path = "static/data/2324/all-euro-data-2023-2024.xlsx"
+    file_path = "static/data/2324/all-euro-data-2023-2024-last.xlsx"
     excel_data = pd.read_excel(file_path, sheet_name=None)
 
     # Debug: Print the names of the sheets in the Excel file
