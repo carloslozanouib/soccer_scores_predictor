@@ -63,6 +63,6 @@ def generate_future_matches():
 
     print(f"JSON output saved to {output_file}")
 
-# Esegui solo se il file è eseguito direttamente
+# Execute directly
 if __name__ == '__main__':
     generate_future_matches()
